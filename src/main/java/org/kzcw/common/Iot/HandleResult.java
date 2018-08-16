@@ -41,6 +41,7 @@ public class HandleResult implements Runnable {
 				if (result!=Constant.WARN_NORMAL) {
 					Breakhistory breakhistory = new Breakhistory();
 					breakhistory.setIEME(newdevice.DeviceID);
+					breakhistory.setISHADND(0);//未被处理
 					switch (result) {
 						case Constant.WARN_LOW_TEMRATURE:
 							breakhistory.setTYPE("温度过低");
@@ -68,20 +69,24 @@ public class HandleResult implements Runnable {
 
 				Status status = new Status();
 				status.setIEME(newdevice.DeviceID);
-				if (newdevice.eleclock) // 设置电子锁开
+				if (newdevice.eleclock) { // 设置电子锁开
 					status.setLOCKSTATUS(1);
-				else
+				}else {
 					status.setLOCKSTATUS(0);
+				}
 
-				if (newdevice.elecunlock) // 电子锁关状态
+				if (newdevice.elecunlock) { // 电子锁关状态
 					status.setUNLOCKSTATUS(1);
-				else
+				}else {
 					status.setUNLOCKSTATUS(0);
+				}
 
-				if (newdevice.handlock) // 设置电子锁开
+				if (newdevice.handlock) {
+					// 设置电子锁开
 					status.setDOORSTATUS(1);
-				else
+				}else {
 					status.setDOORSTATUS(0);
+				}
 
 				status.setTEMPERATURE(String.valueOf(newdevice.temperature));
 				status.setVOLTAGE(String.valueOf(newdevice.volt));
@@ -101,7 +106,7 @@ public class HandleResult implements Runnable {
 		if (data.volt < Constant.MIN_VOLUME) {
 			return Constant.WARN_LOW_VOLUME;
 		}
-		if ((data.elecunlock == false) && (data.eleclock == true) && (data.handlock = false)) {
+		if ((data.eleclock == true) && (data.handlock == false)) {
 			return Constant.WARN_ILLEGAL_OPENDOOR;
 		}
 		if (!(data.eleclock ^ data.elecunlock)) {

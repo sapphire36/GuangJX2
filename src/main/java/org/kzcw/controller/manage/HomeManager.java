@@ -15,6 +15,7 @@ import org.kzcw.model.Breakhistory;
 import org.kzcw.model.Lightbox;
 import org.kzcw.model.Module;
 import org.kzcw.model.User;
+import org.kzcw.service.BreakhistoryService;
 import org.kzcw.service.LightboxService;
 import org.kzcw.service.ModuleService;
 import org.kzcw.service.UserService;
@@ -37,6 +38,9 @@ public class HomeManager {
 	
 	@Autowired
 	private UserService userservice;
+	
+	@Autowired
+	private BreakhistoryService breakhistoryservice;
 
 	@RequestMapping(value = "/getview/index", method = RequestMethod.GET)
 	public String indexview(ModelMap map, HttpServletRequest request) {
@@ -124,9 +128,14 @@ public class HomeManager {
 			SystemData systemdata = SystemData.getInstance();
 			AreaEntry areaEntry =systemdata.getAreaEntry(user.getAREANAME());
 			if(areaEntry!=null) {
-				List<Breakhistory> breakhistorylist=areaEntry.getBreakhistorylist().getBreakHistoryList();
+				List<Breakhistory> breakhistorylist=breakhistoryservice.getUnHandledList(areaEntry.getArea().getAREANAME());
 				StringBuffer stringBuffer = new StringBuffer();
 				int max = 7;
+				if(breakhistorylist==null) {
+					result.put("data", "false");
+					result.put("size", 0);
+					return result;
+				}
 				for(Breakhistory breakhistory : breakhistorylist) {
 					max--;
 					if (max < 0) {

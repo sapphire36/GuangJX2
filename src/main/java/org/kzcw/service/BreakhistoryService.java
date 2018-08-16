@@ -24,7 +24,25 @@ public class BreakhistoryService extends BaseServiceImpl<Breakhistory>{
 		this.dao = dao;
 	}
 	
+	public List<Breakhistory> getUnHandledList(String areaname) {
+		//查找未被处理的报警
+		return dao.getList(areaname,0);
+	}
+	
 	public List<Breakhistory> getBreakhistoryByAreaName(String areaname) {
 		return dao.getBreakhistoryByAreaName(areaname);
+	}
+	
+	public boolean deleteAllItem() {
+		//清空数据表
+		String sql="delete from t_breakhistory";
+		boolean result=false;
+		try {
+			result=dao.ExecSQL(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+			result=false;
+		}
+		return result;
 	}
 }

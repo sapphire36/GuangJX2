@@ -98,7 +98,11 @@ public class ControlManager {
 					stringBuffer.append("<li onclick=\"showdialog(this)\"><span>");
 					stringBuffer.append(x.USERNAME);
 					stringBuffer.append("</span>");
-					stringBuffer.append(":正在请求开锁:" + x.EMEI + ":操作");
+					if(x.isOpen) {
+						stringBuffer.append(":正在请求开锁:" + x.EMEI + ":操作");
+					}else {
+						stringBuffer.append(":正在请求关锁:" + x.EMEI + ":操作");
+					}
 					stringBuffer.append("</li>");
 				}
 			} else {

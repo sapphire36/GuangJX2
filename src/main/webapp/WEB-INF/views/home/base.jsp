@@ -50,7 +50,7 @@ function showmessage(message,show) {
 }
 
 $(document).ready(function(){		
-	//getwainning();
+	getwainning();
 	getmessage();
 });
 function getwainning(){
@@ -60,7 +60,6 @@ function getwainning(){
 		url : "<%=basePath%>/manage/home/getwainning",
 		data :"test",
 		success : function(data) {
-			//$("#warnnintModel").modal("show");
 			if(data.data=="true"){
 				if(data.size>0){
 					$("#wariningsize").show();

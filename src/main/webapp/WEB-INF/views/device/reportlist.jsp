@@ -16,6 +16,27 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 			sPaginationType : "full_numbers"
 		});
 	});
+	
+	function deleteAll(){
+	    if(confirm("确定清空上报数据吗")){  
+			$.ajax({
+				type : "POST",
+				url : "<%=basePath1%>/manage/device/deleteAllStatus",
+						data : {
+							"ID" : "tt"
+						},
+						success : function(data) {
+							if (data.ret == "true") {
+								toastr.success("清空日志成功!");
+								location.reload();//刷新界面
+							} else {
+								toastr.error("清空日志失败!");
+							}
+						}
+					});
+					return true;
+		     }
+	}
 </script>
 </rapid:override>
 <rapid:override name="content">
@@ -24,8 +45,8 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 			id="refresh" class="mws-button green" value="返回"
 			onclick="javascript:history.back(-1);" />
             <input type="button"
-			id="refresh" class="mws-button red" value="清空"
-			onclick="refresh(this)" />
+			id="deleteAll" class="mws-button red" value="清空"
+			onclick="deleteAll()" />
 
 		<div class="mws-panel-header">
 			<span class="mws-i-24 i-table-1">上报历史</span>
@@ -38,7 +59,8 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 						<th align="center">电压</th>
 						<th align="center">温度</th>
 						<th align="center">门状态</th>
-						<th align="center">锁状态</th>
+	                    <th align="center">锁开状态</th>
+					    <th align="center">锁关状态</th>
 						<th align="center">时间</th>
 					</tr>
 				</thead>
@@ -48,19 +70,24 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 							<td align="center">${status.IEME}</td>
 							<td align="center">${status.VOLTAGE}</td>
 							<td align="center">${status.TEMPERATURE}</td>
-							 <c:if test="${status.LOCKSTATUS==1}">   
-							     <td align="center">开</td>
-							 </c:if>
-							 <c:if test="${status.LOCKSTATUS==0}">   
-							     <td align="center">关</td>
-							 </c:if>
-							 
 							 <c:if test="${status.DOORSTATUS==1}">   
-							     <td align="center">开</td>
+							     <td align="center">关</td>
 							 </c:if>
 							 <c:if test="${status.DOORSTATUS==0}">   
-							     <td align="center">关</td>
+							     <td align="center">开</td>
 							 </c:if>
+							 <c:if test="${status.LOCKSTATUS==1}">
+                                <td align="center">开</td>
+                             </c:if>
+                             <c:if test="${status.LOCKSTATUS==0}">
+                                <td align="center">关</td>
+                             </c:if>
+							 <c:if test="${status.UNLOCKSTATUS==1}">
+                                <td align="center">开</td>
+                             </c:if>
+                             <c:if test="${status.UNLOCKSTATUS==0}">
+                                <td align="center">关</td>
+                             </c:if>
 							<td align="center">${status.ADDTIME}</td>
 						</tr>
 					</c:forEach>

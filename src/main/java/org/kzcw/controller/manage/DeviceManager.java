@@ -12,6 +12,8 @@ import org.kzcw.common.InstallLightBoxList;
 import org.kzcw.common.global.Constant;
 import org.kzcw.common.global.Picdeliver;
 import org.kzcw.common.global.SystemData;
+import org.kzcw.model.Area;
+import org.kzcw.model.Breakhistory;
 import org.kzcw.model.Lightbox;
 import org.kzcw.model.Status;
 import org.kzcw.model.User;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/manage/device")
@@ -231,6 +234,24 @@ public class DeviceManager {
 		}
 		return "/device/breakhistorylist";
 	}
+	
+	
+	@RequestMapping(value = "/handleBreak", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> handleBreak(ModelMap model, @RequestParam int ID, HttpServletRequest request) {
+		// 处理故障
+		Map<String, String> result = new HashMap<String, String>();
+		Breakhistory breakhistory = breakservice.findById(ID);
+		if (breakhistory != null) {
+			breakhistory.setISHADND(1);
+			breakservice.update(breakhistory);
+			result.put("data", "true");
+		} else {
+			result.put("data", "没有找到该项记录!!");
+			result.put("message", "false");
+		}
+		return result;
+	}
 
 	// ************************************安装审核队列管理**************************
 	// ************************************安装审核队列管理**************************
@@ -310,6 +331,47 @@ public class DeviceManager {
 			if(box!=null) {			
 				result.put("data", "true");
 			} 
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value = "/deleteAllStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> deleteAllStatus(ModelMap map, HttpServletRequest request) {
+		// 清空数据表
+		Map<String, String> result = new HashMap<String, String>();		
+		try {
+			boolean flag = staservice.deleteAllItem();
+			if(flag) {
+				result.put("ret", "true"); // 执行成功
+			}else {
+				result.put("ret", "false"); // 执行失败
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("ret", "false");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/deleteAllBreakhistorylist", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> deleteAllBreakhistorylist(ModelMap map, HttpServletRequest request) {
+		// 清空数据表
+		Map<String, String> result = new HashMap<String, String>();		
+		try {
+			boolean flag = breakservice.deleteAllItem();
+			if(flag) {
+				result.put("ret", "true"); // 执行成功
+			}else {
+				result.put("ret", "false"); // 执行失败
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("ret", "false");
 		}
 		return result;
 	}
