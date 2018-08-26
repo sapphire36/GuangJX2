@@ -106,7 +106,8 @@ public class HandleResult implements Runnable {
 		if (data.volt < Constant.MIN_VOLUME) {
 			return Constant.WARN_LOW_VOLUME;
 		}
-		if ((data.eleclock == true) && (data.handlock == false)) {
+
+		if ((data.eleclock == false) && (data.handlock == true)) {
 			return Constant.WARN_ILLEGAL_OPENDOOR;
 		}
 		if (!(data.eleclock ^ data.elecunlock)) {
