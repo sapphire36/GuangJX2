@@ -77,10 +77,10 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 							     <td align="center">开</td>
 							 </c:if>
 							 <c:if test="${status.LOCKSTATUS==1}">
-                                <td align="center">开</td>
+                                <td align="center">关</td>
                              </c:if>
                              <c:if test="${status.LOCKSTATUS==0}">
-                                <td align="center">关</td>
+                                <td align="center">开</td>
                              </c:if>
 							 <c:if test="${status.UNLOCKSTATUS==1}">
                                 <td align="center">开</td>

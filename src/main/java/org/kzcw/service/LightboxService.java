@@ -54,15 +54,15 @@ public class LightboxService extends BaseServiceImpl<Lightbox> {
 					if (status != null) {
 
 						if (status.getDOORSTATUS() == 1) {
-							map.put("DOORSTATUS", "开");
-						} else {
 							map.put("DOORSTATUS", "关");
+						} else {
+							map.put("DOORSTATUS", "开");
 						}
 
 						if (status.getLOCKSTATUS() == 1) {
-							map.put("LOCKSTATUS", "开");
-						} else {
 							map.put("LOCKSTATUS", "关");
+						} else {
+							map.put("LOCKSTATUS", "开");
 						}
 					} else {
 						map.put("DOORSTATUS", "未找到上报数据");

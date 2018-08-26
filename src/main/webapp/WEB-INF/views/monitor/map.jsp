@@ -20,37 +20,101 @@
 <script type="text/javascript">
 	var markerArr = new Array();
 	var i = 0;
-	<c:forEach var="box" items="${llist}">
+	<c:forEach var="box" items="${lightboxlist}">
 	{
 		id = "${box.ID}", 
 		name = "${box.NAME}",
 		point = "${box.LOCATION}",
-		lockstatus = "${box.LOCKSTATUS}", 
 		unlockstatus = "${box.UNLOCKSTATUS}",
 		doorstatus = "${box.DOORSTATUS}", 
-		vol = "${box.VOLTAGE}",
-		temp = "${box.TEMPERATURE}";
+		constructstatus = "${box.CONSTRUCTSTATUS}", 
+		isonline = "${box.ISONLINE}";
 
 		markerArr[i] = {
 			id : id,
 			name : name,
-			point : point,
-			lockstatus : lockstatus,
+			location : point,
 			unlockstatus : unlockstatus,
 			doorstatus : doorstatus,
-			vol : vol,
-			temp : temp
+			constructstatus : constructstatus,
+			isonline : isonline
 		};
 		i++;
 	}
 	</c:forEach>
+	var imageOffset_x = -22;
+	var customIcon_red = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+        imageOffset: new BMap.Size(imageOffset_x*2, -20) // 设置图片偏移
+    });
+	var customIcon_green = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+        imageOffset: new BMap.Size(0, -20) // 设置图片偏移
+    });
+	var customIcon_yellow = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+        imageOffset: new BMap.Size(imageOffset_x*3, -20) // 设置图片偏移
+    });
 	
-    
+	function addMarker(map,points) {
+	    //循环建立标注点
+	    for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
+	    	try{ 
+		    	var customIcon; 
+				var p0 = points[i].location.split(",")[0]; //
+				var p1 = points[i].location.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来
+		        var point = new BMap.Point(p0, p1); //将标注点转化成地图上的点
+		        if(points[i].constructstatus==1){
+		        	customIcon=customIcon_green;
+		        }else{
+		        	customIcon=customIcon_red;
+		        }
+		        var marker = new BMap.Marker(point); //将点转化成标注点
+		        //var marker = new BMap.Marker(point,{icon:customIcon}); //将点转化成标注点
+		        map.addOverlay(marker);  //将标注点添加到地图上
+		        //添加监听事件
+		        (function() {
+		            var thePoint = points[i];
+		            marker.addEventListener("click",
+		            //显示信息的方法
+		                function() {
+		                showInfo(this,thePoint);
+		            });
+		         })();  
+	    	}catch(error){ 
+	    		console.log(error)
+	    	}
+	    }
+	}
+	
+	function showInfo(thisMarker,point) {
+	    //获取点的信息
+	    var sContent = 
+	    '<ul style="margin:0 0 5px 0;padding:0.2em 0">'  
+	    +'<li style="line-height: 50px;font-size: 15px;">'  
+	    +'<span style="width: 70px;display: inline-block;">箱体名称：</span>' + point.id + '</li>'  
+	    +'<li style="line-height: 26px;font-size: 15px;">'  
+	    +'<span style="width: 50px;display: inline-block;">IMEI编号：</span>' + point.name + '</li>'  
+	    +'<span style="width: 50px;display: inline-block;">IMEI编号：</span>' + point.name + '</li>'  
+	    +'<span style="width: 50px;display: inline-block;">IMEI编号：</span>' + point.name + '</li>'  
+	    +'<li style="line-height: 26px;font-size: 15px;"><span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.name+'">详情</a></li>'  
+	    +'</ul>';
+	    var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+	    thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
+	}
+	
 	function map_init() {
 		var map = new BMap.Map("map"); // 创建Map实例
+		var mapStyle={  style : "midnight" }  
+		map.setMapStyle(mapStyle);
 		var point = new BMap.Point(108.953196, 34.229055); //地图中心点，西安市
 		map.centerAndZoom(point, 14); // 初始化地图,设置中心点坐标和地图级别。
 		map.enableScrollWheelZoom(true); //启用滚轮放大缩小
+        //添加缩略图控件
+        map.addControl(new BMap.OverviewMapControl({isOpen:false,anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
+        //添加缩放平移控件
+        map.addControl(new BMap.NavigationControl());
+        //添加比例尺控件
+        map.addControl(new BMap.ScaleControl());
+
+		
 		// 添加带有定位的导航控件
 		var navigationControl = new BMap.NavigationControl({
 			// 靠左上角位置
@@ -78,86 +142,7 @@
 			alert(e.message);
 		});
 		map.addControl(geolocationControl);
-
-		var point = new Array(); //存放标注点经纬信息的数组
-		var marker = new Array(); //存放标注点对象的数组
-		var info = new Array(); //存放提示信息窗口对象的数组
-		var searchInfoWindow = new Array();//存放信息窗口对象的数组
-		
-		var imageOffset_x = -22;
-		var customIcon_red = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
-            imageOffset: new BMap.Size(imageOffset_x*2, -20) // 设置图片偏移
-        });
-		var customIcon_green = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
-            imageOffset: new BMap.Size(0, -20) // 设置图片偏移
-        });
-		var customIcon_yellow = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
-            imageOffset: new BMap.Size(imageOffset_x*3, -20) // 设置图片偏移
-        });
-		var customIcon;
-		for (var i = 0; i < markerArr.length; i++) {
-			var p0 = markerArr[i].point.split(",")[0]; //
-			var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来
-			point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点
-			//if(DOORSTATUS==0){红色 }else if(LOCKSTATUS==DOORSTATUS && UNLOCKSTATUS==0){绿色}else{黄色}
-			customIcon = customIcon_yellow;
-			if(markerArr[i].doorstatus==0){
-				customIcon = customIcon_red;
-			}else if(markerArr[i].lockstatus==markerArr[i].doorstatus && markerArr[i].unlockstatus==0){
-				customIcon = customIcon_green;
-			}
-			marker[i] = new window.BMap.Marker(point[i], {icon:customIcon}); //按照地图点坐标生成标记
-			map.addOverlay(marker[i]);
-			
-			if(markerArr[i].lockstatus==markerArr[i].unlockstatus){
-				var label = new window.BMap.Label("锁异常", {offset : new window.BMap.Size(20, -10)});
-			    label.setStyle({
-				    maxWidth: "none"
-				});
-			}else if(markerArr[i].lockstatus==0){
-				var label = new window.BMap.Label("锁开中", {offset : new window.BMap.Size(20, -10)});
-				 label.setStyle({
-					    maxWidth: "none"
-					});
-			}else{
-				var label = new window.BMap.Label("锁已关", {offset : new window.BMap.Size(20, -10)});
-			    label.setStyle({
-				    maxWidth: "none"
-				});
-			}
-			marker[i].setLabel(label);
-			//显示marker的title，marker多的话可以注释掉
-// 			var label = new window.BMap.Label(markerArr[i].status1, {offset : new window.BMap.Size(20, -10)});
-// 			label.setStyle({
-// 			    maxWidth: "none"
-// 			});
-// 			marker[i].setLabel(label);
-			// 创建信息窗口对象
-			info[i] = "<p style=’font-size:12px;lineheight:1.8em;’>" + "锁编号："
-					+ markerArr[i].id + "</br>锁名称：" + markerArr[i].name
-					+ "</br>锁状态：" + markerArr[i].lockstatus + "</br>电压："
-					+ markerArr[i].vol + "</br>温度：" + markerArr[i].temp
-					+ "</br></p>";
-
-			//创建信息窗口对象                       
-			searchInfoWindow[i] = new BMapLib.SearchInfoWindow(map, info[i], {
-				title : "箱柜信息", //标题
-				width : 290, //宽度
-				height : 158, //高度
-				panel : "panel", //检索结果面板
-				enableAutoPan : true, //自动平移
-			});
-			//添加点击事件
-			marker[i].addEventListener("click", (function(k) {
-				// js 闭包
-				return function() {
-					//将被点击marker置为中心
-					//map.centerAndZoom(point[k], 18);
-					//在marker上打开检索信息窗口
-					searchInfoWindow[k].open(marker[k]);
-				}
-			})(i));
-		}
+		addMarker(map,markerArr);
 	}
 	//异步调用百度js
 	function map_load() {
