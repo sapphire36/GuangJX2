@@ -151,12 +151,10 @@ public abstract class BaseDao<T extends Serializable> {
 		//根据sql语句获取MAP结果
 		List<Map> list = null;
 		Session session = null;
-
 		try {
 			session = sessionFactory.openSession();
 			list = session
 					.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
-
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {

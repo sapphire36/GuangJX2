@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import org.kzcw.model.Organization;
-import org.kzcw.model.Role;
-import org.kzcw.model.User;
 import org.kzcw.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -133,6 +131,22 @@ public class OrganizationManager {
 		return result;
 	}
 	
+	@RequestMapping(value = "/getpeople", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getpeople(ModelMap map, HttpServletRequest request) {
+		// 添加people
+		Map<String, Object> result = new HashMap<String, Object>();
+		String ID = request.getParameter("ID");  
+		try {
+			Organization organization=organizationservice.findById(Long.parseLong(ID));
+			result.put("data", "true"); // 执行成功
+			result.put("content", organization); // 执行成功
+		} catch (Exception e) {
+			result.put("data", "false");
+		}
+		return result;
+	}
+	
 	
 	@RequestMapping(value = "/addpeople", method = RequestMethod.POST)
 	@ResponseBody
@@ -143,6 +157,9 @@ public class OrganizationManager {
 		String address = request.getParameter("address");  
 		String telphone = request.getParameter("telphone"); 
 		String money = request.getParameter("money"); 
+		String usertype = request.getParameter("usertype");
+		String loginname = request.getParameter("loginname");
+		String loginpasswd = request.getParameter("loginpasswd");
 		String belongto = request.getParameter("belongto"); 
 		try {
 			Organization organization=new Organization();
@@ -150,12 +167,65 @@ public class OrganizationManager {
 			organization.setADDRESS(address);
 			organization.setTEL(telphone);
 			organization.setDEPOSIT(Integer.valueOf(money));
+			organization.setUTYPE(Integer.valueOf(usertype));
 			organization.setTYPE(0); //设置类型为个人
+			organization.setLOGINNAME(loginname);
+			organization.setPASSWD(loginpasswd);
 			organization.setBELONGTO(Long.valueOf(belongto));
 			organizationservice.save(organization);
 			result.put("data", "true"); // 执行成功
 		} catch (Exception e) {
 			// TODO: handle exception
+			result.put("data", "false");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/editpeople", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> editpeople(ModelMap map, HttpServletRequest request) {
+		// 编辑people
+		Map<String, String> result = new HashMap<String, String>();
+		String id = request.getParameter("id");
+		String name = request.getParameter("editname");  
+		String address = request.getParameter("editaddress");  
+		String telphone = request.getParameter("edittelphone"); 
+		String money = request.getParameter("editmoney"); 
+		String usertype = request.getParameter("editusertype");
+		String loginname = request.getParameter("editloginname");
+		String loginpasswd = request.getParameter("editloginpasswd");
+		String belongto = request.getParameter("editbelongto"); 
+		try {
+			Organization organization=organizationservice.findById(Long.parseLong(id));
+			organization.setNAME(name);
+			organization.setADDRESS(address);
+			organization.setTEL(telphone);
+			organization.setDEPOSIT(Integer.valueOf(money));
+			organization.setUTYPE(Integer.valueOf(usertype));
+			organization.setTYPE(0); //设置类型为个人
+			organization.setLOGINNAME(loginname);
+			organization.setPASSWD(loginpasswd);
+			organization.setBELONGTO(Long.valueOf(belongto));
+			organizationservice.update(organization);
+			result.put("data", "true"); // 执行成功
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("data", "false");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/deletepeople", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> deletepeople(ModelMap map, HttpServletRequest request) {
+		// delete people
+		Map<String, String> result = new HashMap<String, String>();
+		String ID = request.getParameter("ID");  
+		try {
+			Organization organization=organizationservice.findById(Long.parseLong(ID));
+			organizationservice.delete(organization);
+			result.put("data", "true"); // 执行成功
+		} catch (Exception e) {
 			result.put("data", "false");
 		}
 		return result;

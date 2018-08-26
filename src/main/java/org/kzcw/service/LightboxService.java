@@ -31,6 +31,10 @@ public class LightboxService extends BaseServiceImpl<Lightbox> {
 	public List<Lightbox> findByAreaName(String area) {
 		return dao.findByAreaName(area);
 	}
+	
+	public List<Lightbox> getList(String AREANAME) {
+		 return dao.getList(AREANAME);
+	}
 
 	public List<Map> getLightboxList(String AREANAME) {
 		List<Lightbox> lightboxslist = list();

@@ -50,7 +50,7 @@ public class OrganizationDao extends BaseDao<Organization>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Organization getOrganization(String uname, String passwd, long type) {
+	public Organization getOrganization(String uname, String passwd, int type) {
 		List<Organization> total;
 		Organization ret=null; //返回值
 		Session session = null;

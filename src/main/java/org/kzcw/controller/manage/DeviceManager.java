@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.kzcw.common.AreaEntry;
 import org.kzcw.common.InstallLightBoxList;
 import org.kzcw.common.global.Constant;
 import org.kzcw.common.global.Picdeliver;
 import org.kzcw.common.global.SystemData;
-import org.kzcw.model.Area;
 import org.kzcw.model.Breakhistory;
 import org.kzcw.model.Lightbox;
 import org.kzcw.model.Status;
@@ -28,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 @Controller
 @RequestMapping("/manage/device")
 public class DeviceManager {
@@ -60,26 +59,7 @@ public class DeviceManager {
 			System.out.println("图片不存在");
 		}
 	}
-/*
-	@RequestMapping("/showImage")
-	public void showImage(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			String imageUrl=request.getParameter("filepath");
-	        FileInputStream inputStream = new FileInputStream(imageUrl);  
-	        int i = inputStream.available();  
-	        byte[] buff = new byte[i];  
-	        inputStream.read(buff);  
-	        inputStream.close();  
-	        response.setContentType("image/*");  
-	        OutputStream out = response.getOutputStream();  
-	        out.write(buff);  
-	        out.close();  
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("图片不存在");
-		}
-	}
-	*/
+
 	// ************************************箱体信息管理**************************
 	// ************************************箱体信息管理**************************
 	@RequestMapping(value = "/getview/lightboxlist", method = RequestMethod.GET)
@@ -368,7 +348,6 @@ public class DeviceManager {
 			}else {
 				result.put("ret", "false"); // 执行失败
 			}
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			result.put("ret", "false");

@@ -18,7 +18,7 @@ public class Lightbox extends General{
 	private int ISONLINE;//1 表示在线   0表示下线
 	private int UNLOCKSTATUS;//关锁状态
 	private int DOORSTATUS;//门状态
-	private int CONSTRUCTSTATUS;//施工状态
+	private int CONSTRUCTSTATUS;//施工状态 1:正在施工 0:未施工
 	private int ISREGIST;//是否注册:1表示已经注册   0表示未注册
 
 	@Column(nullable = false,length=50)

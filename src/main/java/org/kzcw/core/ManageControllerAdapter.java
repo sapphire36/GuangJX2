@@ -10,7 +10,6 @@ import org.kzcw.common.global.Constant;
 import org.kzcw.model.Module;
 import org.kzcw.model.Role;
 import org.kzcw.model.User;
-import org.kzcw.service.ModuleService;
 import org.kzcw.service.RoleService;
 import org.kzcw.service.UserService;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,8 +19,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class ManageControllerAdapter extends HandlerInterceptorAdapter implements InitializingBean {
 	// HandlerInterceptor 接口中定义了三个方法，我们就是通过这三个方法来对用户的请求进行拦截处理的。
-	@Autowired
-	private ModuleService moduleService;
 
 	@Autowired
 	private RoleService roleService;
@@ -92,40 +89,12 @@ public class ManageControllerAdapter extends HandlerInterceptorAdapter implement
 			User user = userservice.findById(Long.parseLong((String) userid));
 			if (user == null)
 				return;
-			List<Module> result = new ArrayList<Module>();
-			String rights = "";
-			Role role = roleService.findById(user.getROLEID());
-			if (role == null)
-				return;
-			rights = role.getRIGHTS();
-			if (rights == null)
-				return;
-			List<Module> mlist = moduleService.list();
-			if (!rights.equals("")) {
-				String[] tt = rights.split(",");// 分割获取模块列表
-				for (Module m : mlist) {
-					if (IsInRight(m.getCODE(), tt)) {
-						// 如果存在,则添加到返回列表中
-						result.add(m);
-					}
-				}
-			}
+			List<Module> result = roleService.getModules(user.getROLEID());
 			if (modelAndView != null) {
 				modelAndView.addObject("list", result);
 			}
 		} catch (Exception e) {
 		}
-	}
-
-	private boolean IsInRight(long id, String[] ll) {
-		// 判断是否在列表中
-		String code = String.valueOf(id);
-		for (int i = 0; i < ll.length; i++) {
-			if (code.equals(ll[i])) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**

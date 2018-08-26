@@ -1,6 +1,4 @@
 package org.kzcw.service;
-
-import java.util.ArrayList;
 import java.util.List;
 import org.kzcw.core.BaseServiceImpl;
 import org.kzcw.dao.OrganizationDao;
@@ -33,7 +31,7 @@ public class OrganizationService extends BaseServiceImpl<Organization> {
 		return dao.getOranizations();
 	}
 	
-	public int doLogin(String uname, String passwd, long type) {
+	public int doLogin(String uname, String passwd, int type) {
 		// 返回值 0:用户名或密码错误,1:登录成功 2:用户被禁用
 		Organization organization = dao.getOrganization(uname, passwd, type);
 		if (organization != null) {
@@ -45,5 +43,9 @@ public class OrganizationService extends BaseServiceImpl<Organization> {
 		} else {
 			return 0;
 		}
+	}
+	
+	public Organization getOrganization(String uname, String passwd, int type) {
+		 return dao.getOrganization(uname, passwd, type);
 	}
 }

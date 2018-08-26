@@ -8,7 +8,7 @@ import org.kzcw.core.General;
 @Entity
 @Table(name="t_status")
 public class Status extends General{
-	
+
 	private static final long serialVersionUID = -4654940818328212372L;
 	private String IEME;//IEME
 	private String VOLTAGE;//电池电压
@@ -17,8 +17,8 @@ public class Status extends General{
 	private int UNLOCKSTATUS;//关锁状态
 	private int DOORSTATUS;//门状态
 	private String AREANAME;//区域
-	
- 
+
+
 	@Column(nullable = false,length=50)
 	public String getIEME() {
 		return IEME;

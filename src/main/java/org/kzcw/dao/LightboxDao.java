@@ -33,6 +33,23 @@ public class LightboxDao extends BaseDao<Lightbox> {
 		return total;
 	}
 	
+	public List<Lightbox> getList(String AREANAME) {
+		List<Lightbox> total = null;
+		Session session = null;
+		try {
+			session = OpenSession();
+			Criteria criteria = session.createCriteria(Lightbox.class);
+       		//选择t_lightbox表中,AREANAME为area的值
+			criteria.add(Restrictions.eq("AREANAME",AREANAME));
+			total=criteria.list();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return total;
+	}
+	
 	public Lightbox findByIMEI(String imei) {
 		List<Lightbox> total = null;
 		Session session = null;
