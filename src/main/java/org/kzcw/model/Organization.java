@@ -20,6 +20,7 @@ public class Organization extends General{
 	private long BELONGTO;//如果是企业 则BELONGTO的值代表其归属的企业
 	private String LOGINNAME;
 	private String PASSWD;//登录小程序的密码
+	private String AREANAME;//区域
 	private int UTYPE;//类别:1代表安装人员,2代表施工人员
 	private int STATUS; //1代表可用,0代表禁用
 	
@@ -93,6 +94,14 @@ public class Organization extends General{
 	}
 	public void setUTYPE(int uTYPE) {
 		UTYPE = uTYPE;
+	}
+	
+	@Column(nullable = false,length=50)
+	public String getAREANAME() {
+		return AREANAME;
+	}
+	public void setAREANAME(String aREANAME) {
+		AREANAME = aREANAME;
 	}
 	
 	@Column(nullable = true,columnDefinition="INT default 1")

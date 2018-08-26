@@ -21,7 +21,7 @@ public class CommonServiceApi {
 	@Autowired
 	OrganizationService organizationservice;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> loginin(ModelMap map, HttpServletRequest request) {
 		// 登陆

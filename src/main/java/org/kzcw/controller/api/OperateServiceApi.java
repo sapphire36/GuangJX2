@@ -29,7 +29,7 @@ public class OperateServiceApi {
 	@Autowired
 	LightboxService lightboxservice; // 光交箱
 
-	@RequestMapping(value = "/openLightbox", method = RequestMethod.GET)
+	@RequestMapping(value = "/openLightbox", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> openLock(ModelMap map, HttpServletRequest request) {
 		// 开箱申请
@@ -41,23 +41,20 @@ public class OperateServiceApi {
 			result.put("data", "请检查是否获取设备IMEI码或者是否选择地区!");
 			return result;
 		}
-		OperateMessage message = new OperateMessage(UNAME, getEMEI(IMEI), true); // 开锁
 		SystemData systemdata = SystemData.getInstance();
 		AreaEntry areaentry = systemdata.getAreaEntry(AREA);
-		OperateList operateList = null;
 		if (areaentry != null) {
-			operateList = areaentry.getOperateList();
-		}
-		if (operateList != null) {
+			OperateMessage message = new OperateMessage(UNAME, getEMEI(IMEI), true); // 开锁
+			OperateList operateList = areaentry.getOperateList();
 			operateList.addOperateItem(message);
 			result.put("data", "提交申请成功,请耐性等待开锁,时间大概1分钟左右");
-		} else {
+		}else {
 			result.put("data", AREA + "地区没有订阅,请联系管理员先订阅该地区");
 		}
 		return result;
 	}
 
-	@RequestMapping(value = "/getOpenStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOpenStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getOpenStatus(ModelMap map, HttpServletRequest request) {
 		// 检查开锁状态
@@ -87,7 +84,7 @@ public class OperateServiceApi {
 		return result;
 	}
 
-	@RequestMapping(value = "/closeLightbox", method = RequestMethod.GET)
+	@RequestMapping(value = "/closeLightbox", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> closeLock(ModelMap map, HttpServletRequest request) {
 		// 关箱申请
@@ -101,19 +98,26 @@ public class OperateServiceApi {
 			return result;
 		}
 		try {
-			Lightbox lightbox = lightboxservice.findByIMEI(IMEI);
-			lightbox.setCONSTRUCTSTATUS(0);// 设置施工状态为0
-			result.put("data", "true");
-			result.put("content", "提交成功!");
-			lightboxservice.update(lightbox);
+			SystemData systemdata = SystemData.getInstance();
+			AreaEntry areaentry = systemdata.getAreaEntry(AREA);
+			if (areaentry != null) {
+				Lightbox lightbox = lightboxservice.findByIMEI(IMEI);
+				lightbox.setCONSTRUCTSTATUS(0);// 设置施工状态为0
+				result.put("data", "true");
+				result.put("content", "提交成功!");
+				lightboxservice.update(lightbox);
+			}else {
+				result.put("data", AREA + "地区没有订阅,请联系管理员先订阅该地区");
+			}
+
 		} catch (Exception e) {
-			result.put("data", "true");
+			result.put("data", "false");
 			result.put("content", e.getMessage());
 		}
 		return result;
 	}
 
-	@RequestMapping(value = "/getLightboxList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getLightboxList", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> loginin(ModelMap map, HttpServletRequest request) {
 		// 登陆

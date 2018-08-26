@@ -127,6 +127,7 @@
 		var money = $("#money").val();
 		var loginname = $("#loginname").val();
 		var loginpasswd = $("#loginpasswd").val(); 
+		var area = $("#area").val();
 		var belongto = ${company.ID}; 
 		$.ajax({
 			type : "POST",
@@ -139,7 +140,8 @@
 				"money" : money,
 				"loginname" : loginname,
 				"loginpasswd" : loginpasswd,
-				"belongto":belongto
+				"belongto":belongto,
+				"area":area
 			},
 			success : function(data) {
 				if (data.data == "true") {
@@ -160,6 +162,7 @@
 		var telphone = $("#edittelphone").val(); 
 		var usertype = $("#editusertype").val();
 		var money = $("#editmoney").val();
+		var area = $("#editarea").val();
 		var loginname = $("#editloginname").val();
 		var loginpasswd = $("#editloginpasswd").val(); 
 		var belongto = ${company.ID}; 
@@ -175,7 +178,8 @@
 				"editmoney" : money,
 				"editloginname" : loginname,
 				"editloginpasswd" : loginpasswd,
-				"editbelongto":belongto
+				"editbelongto":belongto,
+				"editarea":area
 			},
 			success : function(data) {
 				if (data.data == "true") {
@@ -187,7 +191,45 @@
 			}
 		});
 	}
-	</script>
+	
+	function disableuse(obj){
+		var id = $(obj).prev().prev().prev().val();
+		$.ajax({
+			type : "POST",
+			url : "<%=basePath1%>/manage/constructor/disableuse",
+			data : {
+				"ID" : id
+			},
+			success : function(data) {
+				if (data.data == "true") {
+					toastr.success("用户已禁用!");
+					location.reload();//刷新界面
+				} else {
+					toastr.error("用户禁用失败!");
+				}
+			}
+		});
+	}
+
+	function openuse(obj){
+		var id = $(obj).prev().prev().prev().val();
+		$.ajax({
+			type : "POST",
+			url : "<%=basePath1%>/manage/constructor/openuse",
+			data : {
+				"ID" : id
+			},
+			success : function(data) {
+				if (data.data == "true") {
+					toastr.success("用户已启用!");
+					location.reload();//刷新界面
+				} else {
+					toastr.error(data.message);
+				}
+			}
+		});
+	}
+</script>
 </rapid:override>
 <rapid:override name="content">
 	<div class="mws-panel grid_8">
@@ -204,11 +246,11 @@
 				<thead>
 					<tr>
 						<th>姓名</th>
-						<th>家庭地址</th>
+						<th>地址</th>
 						<th>电话</th>
 						<th>押金</th>
-						<th>状态</th>
-						<th>用户类型</th>
+						<th>区域</th>
+						<th>类型</th>
 						<th>小程序登录名</th>
 						<th>注册日期</th>
 						<th>操作</th>
@@ -221,7 +263,7 @@
 							<td align="center">${people.ADDRESS}</td>
 							<td align="center">${people.TEL}</td>
 							<td align="center">${people.DEPOSIT}</td>
-							<td align="center">${people.STATUS}</td>
+							<td align="center">${people.AREANAME}</td>
 							<c:if test="${people.UTYPE!=1}">   
 						       <td align="center">施工人员</td>
 							</c:if>
@@ -234,6 +276,14 @@
 							<input type="hidden"  value="${people.ID}"> 
                             <input type="button" value="编辑" class="mws-button blue small" onclick="edititem(this)"/> 
 						    <input type="button" value="删除" class="mws-button red small" onclick="deleteitem(this)"/>
+						    <c:if test="${people.STATUS==1}">   
+                                 <input type="button" value="禁用"
+							   class="mws-button gray small" onclick="disableuse(this)" /> 
+							</c:if>
+							<c:if test="${people.STATUS==0}">   
+						      <input type="button" value="启用"
+							  class="mws-button green small" onclick="openuse(this)" /> 
+							</c:if>
 						    </td>
 						</tr>
 					</c:forEach>
@@ -274,6 +324,16 @@
 						<div class="mws-form-item large">
 							<input id="telphone" type="text" class="mws-textinput"
 								title="input your email" />
+						</div>
+					</div>
+					<div class="mws-form-row">
+						<label>所在区域：</label>
+						<div class="mws-form-item small">
+							<select id="area">
+							   <c:forEach var="area" items="${arealist}">
+								<option>${area.AREANAME}</option>
+							   </c:forEach>
+							</select>
 						</div>
 					</div>
 					<div class="mws-form-row">
@@ -335,6 +395,16 @@
 						<div class="mws-form-item large">
 							<input id="edittelphone" type="text" class="mws-textinput"
 								title="input your email" />
+						</div>
+					</div>
+					<div class="mws-form-row">
+						<label>所在区域：</label>
+						<div class="mws-form-item small">
+							<select id="editarea">
+							   <c:forEach var="area" items="${arealist}">
+								<option>${area.AREANAME}</option>
+							   </c:forEach>
+							</select>
 						</div>
 					</div>
 					<div class="mws-form-row">

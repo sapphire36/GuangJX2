@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import org.kzcw.model.Organization;
+import org.kzcw.service.AreaService;
 import org.kzcw.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class OrganizationManager {
 	
 	@Autowired
 	OrganizationService organizationservice;
+	
+	@Autowired
+	AreaService areaservice;
 	
 	@RequestMapping(value = "/getview/constructorlist", method = RequestMethod.GET)
 	public String onstructlist(ModelMap map,HttpServletRequest request){
@@ -44,6 +48,7 @@ public class OrganizationManager {
 			} catch (Exception e) {
 			}
 		}
+		map.addAttribute("arealist", areaservice.list());
 		return "constructor/constructordetil";
 	}
 	
@@ -158,6 +163,7 @@ public class OrganizationManager {
 		String telphone = request.getParameter("telphone"); 
 		String money = request.getParameter("money"); 
 		String usertype = request.getParameter("usertype");
+		String area = request.getParameter("area");
 		String loginname = request.getParameter("loginname");
 		String loginpasswd = request.getParameter("loginpasswd");
 		String belongto = request.getParameter("belongto"); 
@@ -169,6 +175,8 @@ public class OrganizationManager {
 			organization.setDEPOSIT(Integer.valueOf(money));
 			organization.setUTYPE(Integer.valueOf(usertype));
 			organization.setTYPE(0); //设置类型为个人
+			organization.setAREANAME(area);
+			organization.setSTATUS(1);
 			organization.setLOGINNAME(loginname);
 			organization.setPASSWD(loginpasswd);
 			organization.setBELONGTO(Long.valueOf(belongto));
@@ -194,7 +202,8 @@ public class OrganizationManager {
 		String usertype = request.getParameter("editusertype");
 		String loginname = request.getParameter("editloginname");
 		String loginpasswd = request.getParameter("editloginpasswd");
-		String belongto = request.getParameter("editbelongto"); 
+		String belongto = request.getParameter("editbelongto");
+		String area = request.getParameter("editarea");
 		try {
 			Organization organization=organizationservice.findById(Long.parseLong(id));
 			organization.setNAME(name);
@@ -203,6 +212,8 @@ public class OrganizationManager {
 			organization.setDEPOSIT(Integer.valueOf(money));
 			organization.setUTYPE(Integer.valueOf(usertype));
 			organization.setTYPE(0); //设置类型为个人
+			organization.setAREANAME(area);
+			organization.setSTATUS(1);
 			organization.setLOGINNAME(loginname);
 			organization.setPASSWD(loginpasswd);
 			organization.setBELONGTO(Long.valueOf(belongto));
@@ -227,6 +238,50 @@ public class OrganizationManager {
 			result.put("data", "true"); // 执行成功
 		} catch (Exception e) {
 			result.put("data", "false");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/openuse", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> openuse(ModelMap model, @RequestParam int ID, HttpServletRequest request) {
+		// 启用
+		Map<String, String> result = new HashMap<String, String>();
+		Organization organization=organizationservice.findById(ID);
+		if (organization != null) {
+			try {
+				organization.setSTATUS(1);
+				organizationservice.update(organization);
+				result.put("data", "true");
+			} catch (Exception e) {
+				result.put("data", "false");
+				result.put("message", e.toString());
+			}
+		} else {
+			result.put("data", "false");
+			result.put("message", "user not found!" + ID);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/disableuse", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> disableuse(ModelMap model, @RequestParam int ID, HttpServletRequest request) {
+		// 禁用
+		Map<String, String> result = new HashMap<String, String>();
+		Organization organization=organizationservice.findById(ID);
+		if (organization != null) {
+			try {
+				organization.setSTATUS(0);
+				organizationservice.update(organization);
+				result.put("data", "true");
+			} catch (Exception e) {
+				result.put("data", "false");
+				result.put("message", e.toString());
+			}
+		} else {
+			result.put("data", "false");
+			result.put("message", "user not found!" + ID);
 		}
 		return result;
 	}
