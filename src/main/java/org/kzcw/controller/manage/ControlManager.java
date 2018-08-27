@@ -131,8 +131,13 @@ public class ControlManager {
 				if(message.isOpen)
 				    queque.addItem(new OperaType(message.EMEI, 1));// 加入开锁队列
 				else
-					queque.addItem(new OperaType(message.EMEI, 0));// 加入关锁队列
+				    queque.addItem(new OperaType(message.EMEI, 0));// 加入关锁队列
 				areaEntry.getOperateList().delItemByEMEI(IMEI);
+				/*
+				LightBox box = lservice.findByIMEI(message.EMEI); //根据IMEI获取LightBox
+				box.setCONSTRUCTSTATUS(1); //更新施工状态
+				lservice.update(box);   //保存
+				*/
 				result.put("data", "true");
 			} else {
 				result.put("data", "false");
