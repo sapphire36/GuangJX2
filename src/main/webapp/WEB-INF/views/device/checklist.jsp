@@ -19,6 +19,8 @@
 		$("#editlightboxname").attr("value",data[0]);
 		$("#editlockid").attr("value",data[1]);
 		$("#editlocation").attr("value",data[2]);
+		$("#editarea").attr("value",data[3]);
+		
 		$("#opendialog").dialog("option", {
 			modal : false
 		}).dialog("open");
@@ -148,6 +150,13 @@ function getchecklist(){
 						<div class="mws-form-item large">
 							<input id="editpeople" type="text" class="mws-textinput"
 								title="input your email" />
+						</div>
+					</div>
+					<div class="mws-form-row">
+						<label>安装区域：</label>
+						<div class="mws-form-item large">
+							<input id="editarea" type="text" class="mws-textinput"
+								title="input your area" disabled="disabled"/>
 						</div>
 					</div>
 				</div>

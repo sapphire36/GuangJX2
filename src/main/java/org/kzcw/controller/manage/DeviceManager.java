@@ -255,7 +255,7 @@ public class DeviceManager {
 			InstallLightBoxList installlist=areaEntry.getInstalllightboxlist();
 			for (Lightbox x : installlist.getChecklist()) {
 	        	stringBuffer.append("<li onclick=\"showdialog(this)\"><span>");
-	    		stringBuffer.append(String.format("%s:%s:%s", x.getNAME(),x.getIEME(),x.getLOCATION()));
+	    		stringBuffer.append(String.format("%s:%s:%s:%s", x.getNAME(),x.getIEME(),x.getLOCATION(),x.getAREANAME()));
 				stringBuffer.append("</span>");	
 				stringBuffer.append("</li>");
 			}
@@ -276,6 +276,7 @@ public class DeviceManager {
 			String editlockid=request.getParameter("editlockid");
 			String editlocation=request.getParameter("editlocation");
 			String editpeople=request.getParameter("editpeople");
+			
 			User user = userservice.findById(Long.parseLong((String) userid));
 			SystemData systemdata= SystemData.getInstance();
 			AreaEntry areaEntry = systemdata.getAreaEntry(user.getAREANAME());

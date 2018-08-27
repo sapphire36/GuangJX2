@@ -86,40 +86,33 @@ public class OperateServiceApi {
 
 	@RequestMapping(value = "/closeLightbox", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> closeLock(ModelMap map, HttpServletRequest request) {
+	public Map<String, Object> closeLightbox(ModelMap map, HttpServletRequest request) {
 		// 关箱申请
 		Map<String, Object> result = new HashMap<String, Object>();
 		String UNAME = request.getParameter("UNAME");// 用户名字
 		String IMEI = request.getParameter("IMEI");// 设备IMEI码
-		String AREA = request.getParameter("AREA");// 地区
-		if ((UNAME == null) || (IMEI == null) || (AREA == null)) {
-			result.put("data", "false");
-			result.put("content", "请检查是否获取设备IMEI码或者是否选择地区!");
+		if ((UNAME == null) || (IMEI == null)) {
+			result.put("data", "请检查是否获取设备IMEI码或者是否选择地区!");
 			return result;
 		}
 		try {
-			SystemData systemdata = SystemData.getInstance();
-			AreaEntry areaentry = systemdata.getAreaEntry(AREA);
-			if (areaentry != null) {
-				Lightbox lightbox = lightboxservice.findByIMEI(IMEI);
+			Lightbox lightbox = lightboxservice.findByIMEI(getEMEI(IMEI));
+			if(lightbox!=null) {
 				lightbox.setCONSTRUCTSTATUS(0);// 设置施工状态为0
-				result.put("data", "true");
-				result.put("content", "提交成功!");
 				lightboxservice.update(lightbox);
+				result.put("data", "提交成功!");
 			}else {
-				result.put("data", AREA + "地区没有订阅,请联系管理员先订阅该地区");
+				result.put("data", "没有找到IMEI为:"+IMEI+"的设备,请检查IMEI是否有误或请联系安装人员");
 			}
-
 		} catch (Exception e) {
-			result.put("data", "false");
-			result.put("content", e.getMessage());
+			result.put("data", e.getMessage());
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/getLightboxList", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> loginin(ModelMap map, HttpServletRequest request) {
+	public Map<String, Object> getLightboxList(ModelMap map, HttpServletRequest request) {
 		// 登陆
 		Map<String, Object> result = new HashMap<String, Object>();
 		String AREA = request.getParameter("AREA");

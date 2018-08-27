@@ -26,6 +26,7 @@ public class Constant{
 	public static final int WARN_ILLEGAL_OPENDOOR=1004; //非法开锁
 	public static final int WARN_MECHAN_BREAKDOWN=1005; //机械故障
 	public static final int WARN_NORMAL=1006; //正常
+	public static final int WARN_UNKOWN=1007; //未知
 	
 	public static float getMIN_VOLUME() {
 		return MIN_VOLUME;

@@ -14,7 +14,6 @@ public class AreaEntry {
 	private YouRenManger yourenmanager;// 有人网络
 	private WaitPublishQueue waitpublishqueue;// 等待操作队列
 	private OperateList operateList; // 开锁队列
-	private BreakHistoryList breakhistorylist;// 故障历史表
 	private SysLogList sysloglist;// 日志信息表
 	private InstallLightBoxList installlightboxlist;// 安装审核信息表
 	private List<Status> statuslist;//数据上报状态表
@@ -46,7 +45,6 @@ public class AreaEntry {
 		yourenmanager = new YouRenManger(this, area.getLOGINNAME(), area.getPASSWD());
 		waitpublishqueue = new WaitPublishQueue(this);
 		operateList = new OperateList();
-		breakhistorylist = new BreakHistoryList(this);
 		sysloglist = new SysLogList(this);
 		installlightboxlist = new InstallLightBoxList();
 		statuslist= new ArrayList<Status>();
@@ -98,14 +96,6 @@ public class AreaEntry {
 
 	public void setOperateList(OperateList operateList) {
 		this.operateList = operateList;
-	}
-
-	public BreakHistoryList getBreakhistorylist() {
-		return breakhistorylist;
-	}
-
-	public void setBreakhistorylist(BreakHistoryList breakhistorylist) {
-		this.breakhistorylist = breakhistorylist;
 	}
 
 	public SysLogList getSysloglist() {

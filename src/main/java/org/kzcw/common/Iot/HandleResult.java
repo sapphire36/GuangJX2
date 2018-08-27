@@ -7,8 +7,6 @@ import org.kzcw.common.AreaEntry;
 import org.kzcw.common.Iot.youren.CRC16;
 import org.kzcw.common.Iot.youren.ReceiveData;
 import org.kzcw.common.Iot.youren.ResultData;
-import org.kzcw.common.global.Constant;
-import org.kzcw.model.Breakhistory;
 import org.kzcw.model.Status;
 
 public class HandleResult implements Runnable {
@@ -37,35 +35,6 @@ public class HandleResult implements Runnable {
 				ResultData newdevice = analysisdata(newstring);
 				newdevice.DeviceID = data.topic.substring(data.topic.length() - 15, data.topic.length());
 				areaEntry.getWaitpublishqueue().doOperate(newdevice.DeviceID); // 执行操作
-				int result = checkWarning(newdevice);
-				if (result!=Constant.WARN_NORMAL) {
-					Breakhistory breakhistory = new Breakhistory();
-					breakhistory.setIEME(newdevice.DeviceID);
-					breakhistory.setISHADND(0);//未被处理
-					switch (result) {
-						case Constant.WARN_LOW_TEMRATURE:
-							breakhistory.setTYPE("温度过低");
-							break;
-						case Constant.WARN_HIGH_TEMRATURE:
-							breakhistory.setTYPE("温度过高");
-							break;
-						case Constant.WARN_LOW_VOLUME:
-							breakhistory.setTYPE("电压过低");
-							break;
-						case Constant.WARN_HIGH_VOLUME:
-							breakhistory.setTYPE("电压过高");
-							break;
-						case Constant.WARN_ILLEGAL_OPENDOOR:
-							breakhistory.setTYPE("非法或应急开锁");
-							break;
-						case Constant.WARN_MECHAN_BREAKDOWN:
-							breakhistory.setTYPE("机械故障");
-							break;
-					}
-					breakhistory.setADDTIME(new Date());
-					breakhistory.setAREANAME(areaEntry.getArea().getAREANAME());
-					areaEntry.getBreakhistorylist().addItem(breakhistory);
-				}
 
 				Status status = new Status();
 				status.setIEME(newdevice.DeviceID);
@@ -74,13 +43,11 @@ public class HandleResult implements Runnable {
 				}else {
 					status.setLOCKSTATUS(0);
 				}
-
 				if (newdevice.elecunlock) { // 电子锁关状态
 					status.setUNLOCKSTATUS(1);
 				}else {
 					status.setUNLOCKSTATUS(0);
 				}
-
 				if (newdevice.handlock) {
 					// 设置电子锁开
 					status.setDOORSTATUS(1);
@@ -99,27 +66,6 @@ public class HandleResult implements Runnable {
 		} else {
 			areaEntry.getSysloglist().addLog("CRC校验失败!!", 1);
 		}
-	}
-
-	public int checkWarning(ResultData data) {
-		// 检查故障情况
-		if (data.volt < Constant.MIN_VOLUME) {
-			return Constant.WARN_LOW_VOLUME;
-		}
-
-		if ((data.eleclock == false) && (data.handlock == true)) {
-			return Constant.WARN_ILLEGAL_OPENDOOR;
-		}
-		if (!(data.eleclock ^ data.elecunlock)) {
-			return Constant.WARN_MECHAN_BREAKDOWN;
-		}
-		if (data.temperature < Constant.MIN_TEMRATURE) {
-			return Constant.WARN_LOW_TEMRATURE;
-		}
-		if (data.temperature > Constant.MAX_TEMRATURE) {
-			return Constant.WARN_HIGH_TEMRATURE;
-		}
-	    return Constant.WARN_NORMAL;
 	}
 
 	public String getIMEIbyTopic(String topic) {
