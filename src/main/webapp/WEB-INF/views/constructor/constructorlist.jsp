@@ -14,6 +14,13 @@
 	function refresh(obj){
 		location.reload();//刷新界面
 	}
+	
+    function openWeixin(obj){
+		$("#Weixin").dialog("option", {
+			modal : false
+		}).dialog("open");
+    }
+	
     function addconstruct(obj){
 		$("#adddialog").dialog("option", {
 			modal : false
@@ -81,6 +88,19 @@
 				}
 			}, {
 				text : "返回",
+				click : function() {
+					$(this).dialog("close");
+				}
+			} ]
+		});
+		
+		$("#Weixin").dialog({
+			autoOpen : false,
+			title : "小程序二维码",
+			modal : true,
+			width : "520",
+			buttons : [ {
+				text : "确定",
 				click : function() {
 					$(this).dialog("close");
 				}
@@ -157,6 +177,9 @@
 			value="添加" onclick="addconstruct(this)" /> <input type="button"
 			id="refresh" class="mws-button blue" value="更新"
 			onclick="refresh(this)" />
+			<input type="button"
+			id="weixin" class="mws-button blue" value="小程序入口"
+			onclick="openWeixin(this)" />
 
 		<div class="mws-panel-header">
 			<span class="mws-i-24 i-table-1">光交箱信息表</span>
@@ -247,6 +270,12 @@
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+	
+	<div id="Weixin">
+		<div class="mws-panel">
+ 			<img src="/GuangJX/static/images/app.jpg"/>
 		</div>
 	</div>
 </rapid:override>

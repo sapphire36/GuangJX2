@@ -17,29 +17,6 @@ $(document).ready(function(){
 	     location.reload();//刷新界面
 	  })
 });
-
-$("#body button.btn-info").click(function(){
-	//根据class来选择 获取上报历史
-	//var emeielem= $(this).parent().prev().prev().prev().prev();
-	//获取emei内容 this代表当前点击的控件
-	//详见:https://www.runoob.com/jquery/jquery-traversing-siblings.html
-	//var emeitext=emeielem.text();
-	var ieme=$(this).parent().prev().prev().prev().prev().prev().prev().prev().text();
-	$.ajax({
-		type : "POST",
-		url : "<%=basePath1%>/manage/device/getstatuslist",
-		data:{"IEME":ieme
-		},
-		success:function(data) {
-             if(data.data=="true"){
-            	 $("#reportcontent").html(data.content); 
-             }else{
-                 toastr.error("数据库连接错误!");
-             }
-       
-		}
-	});
-  });
 </script>
 </rapid:override>
 <rapid:override name="content">
@@ -48,44 +25,81 @@ $("#body button.btn-info").click(function(){
 			<span class="mws-i-24 i-list">${lightbox.NAME}</span>
 		</div>
 		<div class="mws-panel-body">
-			<form class="mws-form" action="#">
+			<form class="mws-form" action="/GuangJX/manage/device/savelightbox">
 				<div class="mws-form-inline">
 					<div class="mws-form-row">
 						<label>箱体名称</label>
-						<div class="mws-form-item large">
-							<input type="text" class="mws-textinput" value="${lightbox.NAME}" />
+						<div class="mws-form-item small">
+							<input type="text" id="name" class="mws-textinput"
+								value="${lightbox.NAME}" />
 						</div>
 					</div>
 					<div class="mws-form-row">
 						<label>安装位置</label>
-						<div class="mws-form-item large">
-							<input type="text" class="mws-textinput" value="${lightbox.LOCATION}" />
+						<div class="mws-form-item small">
+							<input id="location" type="text" class="mws-textinput"
+								value="${lightbox.LOCATION}" />
 						</div>
 					</div>
 					<div class="mws-form-row">
 						<label>锁IMEI编号</label>
-						<div class="mws-form-item large">
-							<input type="text" class="mws-textinput" value="${lightbox.IEME}" />
+						<div class="mws-form-item small">
+							<input id="imei" type="text" class="mws-textinput"
+								value="${lightbox.IEME}" />
 						</div>
 					</div>
 					<div class="mws-form-row">
 						<label>安装人员</label>
-						<div class="mws-form-item large">
-							<input type="text" class="mws-textinput" value="${lightbox.PEOPLE}" />
+						<div class="mws-form-item small">
+							<input id="people" type="text" class="mws-textinput"
+								value="${lightbox.PEOPLE}" />
 						</div>
 					</div>
 					<div class="mws-form-row">
 						<label>施工状态</label>
 						<div class="mws-form-item large">
-							<input type="text" class="mws-textinput" value="${lightbox.CONSTRUCTSTATUS}" />
+					       <c:if test="${lightbox.CONSTRUCTSTATUS==1}">
+                              <label>正在施工</label> 
+                           </c:if>
+                           <c:if test="${lightbox.CONSTRUCTSTATUS==0}">
+                              <label>未施工</label>  
+                           </c:if>
+						</div>
+					</div>
+					<div class="mws-form-row">
+						<label>门状态</label>
+						<div class="mws-form-item large">
+					       <c:if test="${lightbox.DOORSTATUS==1}">
+                              <label>开</label> 
+                           </c:if>
+                           <c:if test="${lightbox.DOORSTATUS==0}">
+                              <label>关</label>  
+                           </c:if>
+						</div>
+					</div>
+					<div class="mws-form-row">
+						<label>锁状态</label>
+						<div class="mws-form-item large">
+					       <c:if test="${lightbox.UNLOCKSTATUS==1}">
+                              <label>开</label> 
+                           </c:if>
+                           <c:if test="${lightbox.UNLOCKSTATUS==0}">
+                              <label>关</label>  
+                           </c:if>
+						</div>
+					</div>					
+					<div class="mws-form-row">
+						<label>操作</label>
+						<div class="mws-form-item large">
+							<input  id="openLock" type="button" value="手动开锁" class="mws-button green" />
+							<input id="closeLock" type="button" value="手动关锁" class="mws-button orange" />
 						</div>
 					</div>
 				</div>
 				<div class="mws-button-row">
-					<input type="submit" value="保存" class="mws-button blue" /> 
-						       <input type="button"
-			  class="mws-button green" value="返回"
-			onclick="javascript:history.back(-1);" />
+					<input type="button" value="保存" class="mws-button blue" /> <input
+						type="button" class="mws-button green" value="返回"
+						onclick="javascript:history.back(-1);" />
 				</div>
 			</form>
 		</div>

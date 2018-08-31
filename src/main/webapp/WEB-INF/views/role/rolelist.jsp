@@ -22,11 +22,40 @@ function editright(obj){
 		modal : false
 	}).dialog("open");
 }
+ 
+function editrole(obj){
+	var name=$(obj).parent().prev().prev().text();
+	var id=$(obj).prev().prev().val();
+	$("#roleID").attr("value",id);
+	$("#editroleName").attr("value",name);
+	$("#editdialog").dialog("option", {
+		modal : false
+	}).dialog("open");
+}
 
 $(document).ready(function() {
 	//页面加载时自动执行该函数
 	$(".mws-datatable-fn").dataTable({
 		sPaginationType : "full_numbers"
+	});
+	
+	$("#editdialog").dialog({
+		autoOpen : false,
+		title : "编辑角色",
+		modal : true,
+		width : "640",
+		buttons : [ {
+			text : "确定",
+			click : function() {
+				doeditrole();
+				$(this).dialog("close");
+			}
+		}, {
+			text : "返回",
+			click : function() {
+				$(this).dialog("close");
+			}
+		} ]
 	});
 	
 	$("#editright").dialog({
@@ -49,6 +78,24 @@ $(document).ready(function() {
 	});
 });
 
+function doeditrole() {
+	$.ajax({
+		type : "POST",
+		url : "<%=basePath1%>/manage/role/doeditrole",
+		data : {
+			"NAME" : $("#editroleName").val(),
+			"ID":$("#roleID").val()
+		},
+		success : function(data) {
+			if (data.data == "true") {
+				toastr.success("角色更新成功!");
+				location.reload();//刷新界面
+			} else {
+				toastr.error("角色更新失败!");
+			}
+		}
+	});
+}
 function doeditright() {
     var checkboxArray = [];//初始化空数组，用来存放checkbox对象。
     var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
@@ -144,8 +191,7 @@ function ccheck(obj)
 </rapid:override>
 <rapid:override name="content">
 	<div class="mws-panel grid_8">
-		<input type="button" id="addlightbox" class="mws-button blue"
-			value="添加" onclick="addlightbox(this)" /> <input type="button"
+           <input type="button"
 			id="refresh" class="mws-button blue" value="更新"
 			onclick="refresh(this)" />
 
@@ -173,10 +219,7 @@ function ccheck(obj)
 								<input type="button" value="权限设置"
 									class="mws-button blue small" onclick="editright(this)" />
 								<input type="button" value="编辑"
-									class="mws-button blue small" onclick="editlightbox(this)" /> 
-								<input
-									type="button" value="删除" class="mws-button red small"
-									onclick="deletelightbox(this)" />
+									class="mws-button blue small" onclick="editrole(this)" /> 
 							</td>
 						</tr>
 					</c:forEach>
@@ -191,6 +234,22 @@ function ccheck(obj)
 			    <input id="roleID" type="hidden"  value=""> 
 				<div class="mws-form-inline">
                     <div id="rightcontent"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+ 
+	<div id="editdialog">
+		<div class="mws-panel">
+			<form class="mws-form" action="#">
+				<div class="mws-form-inline">
+					<div class="mws-form-row">
+						<label>角色名称：</label>
+						<div class="mws-form-item large">
+							<input id="editroleName" type="text" class="mws-textinput"
+								title="input your email" />
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>

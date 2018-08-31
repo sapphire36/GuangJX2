@@ -15,6 +15,7 @@ import org.kzcw.model.Breakhistory;
 import org.kzcw.model.Lightbox;
 import org.kzcw.model.Status;
 import org.kzcw.model.User;
+import org.kzcw.service.AreaService;
 import org.kzcw.service.BreakhistoryService;
 import org.kzcw.service.LightboxService;
 import org.kzcw.service.StatusService;
@@ -36,6 +37,9 @@ public class DeviceManager {
 	// 设备状态历史记录
 	@Autowired
 	StatusService staservice;
+	
+	@Autowired
+	AreaService areaservice;
 	
 	@Autowired
 	private UserService userservice;
@@ -69,6 +73,7 @@ public class DeviceManager {
 		if (userid!= null) { 
 			User user = userservice.findById(Long.parseLong((String) userid));
 	        model.addAttribute("lightlist", lservice.getLightboxList(user.getAREANAME()));
+	        model.addAttribute("arealist",areaservice.list());
 		}
 		return "/device/lightboxlist";
 	}
@@ -77,6 +82,37 @@ public class DeviceManager {
 	@ResponseBody
 	public Map<String, String> addlightbox(ModelMap map, HttpServletRequest request) {
 		// 添加箱体信息
+		Map<String, String> result = new HashMap<String, String>();
+		String name = request.getParameter("NAME"); // 获取参数NAME
+		String lid = request.getParameter("LOCKID"); // 获取参数LOCKID
+		String area = request.getParameter("AREA"); // 获取参数SPEC
+		try {
+			Lightbox ld = new Lightbox();
+			ld.setNAME(name);
+			ld.setIEME(lid);
+			ld.setAREANAME(area);
+			ld.setLOCATION("72,35.5");
+			Object userid = request.getSession().getAttribute(Constant.USERID);
+			if (userid != null) {
+				//set who add lightbox
+				User user = userservice.findById(Long.parseLong((String) userid));
+				if(user!=null) {
+					ld.setOPERATION(user.getUSERNAME());
+				}
+			}
+			lservice.save(ld);
+			result.put("data", "true"); // 执行成功
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("data", "false");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/savelightbox", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> savelightbox(ModelMap map, HttpServletRequest request) {
+		// 编辑
 		Map<String, String> result = new HashMap<String, String>();
 		String name = request.getParameter("NAME"); // 获取参数NAME
 		String lid = request.getParameter("LOCKID"); // 获取参数LOCKID

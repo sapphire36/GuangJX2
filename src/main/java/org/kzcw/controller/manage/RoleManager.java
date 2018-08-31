@@ -43,6 +43,23 @@ public class RoleManager {
         return role;
     }
     
+    @RequestMapping(value="/doeditrole",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,String> doeditrole(ModelMap model,@RequestParam long ID,HttpServletRequest request){
+		//更新
+    	Map<String,String> result=new HashMap<String,String>();
+    	String NAME=request.getParameter("NAME");
+    	if(NAME!=null) {
+	    	Role role=roleservice.findById(ID);
+	    	role.setNAME(NAME);
+	    	roleservice.update(role);
+	    	result.put("data", "true");
+    	}else {
+    		result.put("data", "false");
+    	}
+        return result;
+    }
+    
     @RequestMapping(value="/doeditright",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,String> doeditright(ModelMap model,@RequestParam long ID,HttpServletRequest request){

@@ -285,7 +285,7 @@ function openuse(obj){
 						<div class="mws-form-item small">
 							<select id="usertype">
 							   <c:forEach var="role" items="${rolelist}">
-								<option>${role.NAME}</option>
+								<option value="${role.ID}">${role.NAME}</option>
 							   </c:forEach>
 							</select>
 						</div>
@@ -323,7 +323,7 @@ function openuse(obj){
 						<div class="mws-form-item small">
 							<select id="editusertype">
 							   <c:forEach var="role" items="${rolelist}">
-								<option>${role.NAME}</option>
+								<option value="${role.ID}">${role.NAME}</option>
 							   </c:forEach>
 							</select>
 						</div>

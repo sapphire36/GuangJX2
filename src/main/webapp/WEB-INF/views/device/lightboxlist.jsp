@@ -182,8 +182,11 @@
 					<div class="mws-form-row">
 						<label>所在区域：</label>
 						<div class="mws-form-item large">
-							<input id="area" type="text" class="mws-textinput"
-								title="input your email" />
+							<select id="area">
+							   <c:forEach var="area" items="${arealist}">
+								<option>${area.AREANAME}</option>
+							   </c:forEach>
+							</select>
 						</div>
 					</div>
 				</div>
