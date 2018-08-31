@@ -134,13 +134,13 @@ public class TaskManager {
 				try {
 					List<Lightbox> lightboxlist = lightboxservice.getList(areaEntry.getArea().getAREANAME());
 					for (Lightbox box : lightboxlist) {
-						if (box.getCONSTRUCTSTATUS() == 1) {// 正在施工
+						//if (box.getCONSTRUCTSTATUS() == 1) {// 正在施工
 							if (box.getUNLOCKSTATUS() == 0) {
 								queque.addItem(new OperaType(box.getIEME(), 0)); // 加入关锁队列
 								logmanager.addLog(box.getAREANAME() + "区域,设备名为:" + box.getNAME() + "的锁子已加入自动关锁队列",
 										Constant.LOG_MESSAGE);// 添加日志
 							}
-						}
+						//}
 					}
 				} catch (Exception e) {
 					logmanager.addLog("自动关锁异常:" + e.getMessage(), Constant.LOG_ERROR);// 添加日志
