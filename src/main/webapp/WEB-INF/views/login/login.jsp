@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if IE]>
 <script src="js/html5.js"></script>
 <![endif]-->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <link href="/GuangJX/static/css/toastr.css" rel="stylesheet" />
 <script src="/GuangJX/static/js/toastr.js"></script>
 <script type="text/javascript">

@@ -3,11 +3,11 @@
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript"
-	src="http://api.map.baidu.com/api?v=2.0&ak=IDvNBsejl9oqMbPF316iKsXR"></script>
+	src="https://api.map.baidu.com/api?v=2.0&ak=IDvNBsejl9oqMbPF316iKsXR"></script>
 <script type="text/javascript"
-	src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 <link rel="stylesheet"
-	href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+	href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 <rapid:override name="title">
 	<title>地图</title>
 </rapid:override>
@@ -43,13 +43,13 @@
 	}
 	</c:forEach>
 	var imageOffset_x = -22;
-	var customIcon_red = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+	var customIcon_red = new BMap.Icon("https://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
         imageOffset: new BMap.Size(imageOffset_x*2, -20) // 设置图片偏移
     });
-	var customIcon_green = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+	var customIcon_green = new BMap.Icon("https://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
         imageOffset: new BMap.Size(0, -20) // 设置图片偏移
     });
-	var customIcon_yellow = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
+	var customIcon_yellow = new BMap.Icon("https://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(22, 26), {
         imageOffset: new BMap.Size(imageOffset_x*3, -20) // 设置图片偏移
     });
 	
@@ -147,7 +147,7 @@
 	//异步调用百度js
 	function map_load() {
 		var load = document.createElement("script");
-		load.src = "http://api.map.baidu.com/api?v=2.0&ak=IDvNBsejl9oqMbPF316iKsXR&callback=map_init";
+		load.src = "https://api.map.baidu.com/api?v=2.0&ak=IDvNBsejl9oqMbPF316iKsXR&callback=map_init";
 		document.body.appendChild(load);
 	}
 	window.onload = map_load;
