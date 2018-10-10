@@ -20,7 +20,7 @@ $(document).ready(function(){
 			<span class="mws-i-24 i-list">报警触发器</span>
 		</div>
 		<div class="mws-panel-body">
-			<form class="mws-form" action="/GuangJX/manage/system/getview/savewarntriggerset" method="post">
+			<form class="mws-form" action="/manage/system/getview/savewarntriggerset" method="post">
 				<div class="mws-form-inline">
 					<div class="mws-form-row">
 						<label>温度最大值</label>

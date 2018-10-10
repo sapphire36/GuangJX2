@@ -9,7 +9,7 @@
 %>
 <rapid:override name="title">
 	<title>系统日志</title>
-	<script src="/GuangJX/static/plugins/jquery.dataTables.js"></script>
+	<script src="/static/plugins/jquery.dataTables.js"></script>
 	<script type="text/javascript">
 function refresh(obj){
 	location.reload();//刷新界面

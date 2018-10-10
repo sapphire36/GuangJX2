@@ -9,7 +9,7 @@
 %>
 <rapid:override name="title">
 	<title>施工方管理</title>
-	<script src="/GuangJX/static/plugins/jquery.dataTables.js"></script>
+	<script src="/static/plugins/jquery.dataTables.js"></script>
 	<script type="text/javascript">
 	function refresh(obj){
 		location.reload();//刷新界面
@@ -197,7 +197,7 @@
 				<tbody>
 					<c:forEach var="org" items="${constructorllist}">
 						<tr>
-							<td align="center"><a style="text-decoration:none;" href="/GuangJX/manage/constructor/getview/constructordeteil?id=${org.ID}">${org.NAME}</a></td>
+							<td align="center"><a style="text-decoration:none;" href="/manage/constructor/getview/constructordeteil?id=${org.ID}">${org.NAME}</a></td>
 							<td align="center">${org.ADDRESS}</td>
 							<td align="center">${org.TEL}</td>
 							<td align="center">
@@ -275,7 +275,7 @@
 	
 	<div id="Weixin">
 		<div class="mws-panel">
- 			<img src="/GuangJX/static/images/app.jpg"/>
+ 			<img src="/static/images/app.jpg"/>
 		</div>
 	</div>
 </rapid:override>

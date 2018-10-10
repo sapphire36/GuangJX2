@@ -9,7 +9,7 @@
 %>
 <rapid:override name="title">
 	<title>光交箱信息管理</title>
-	<script src="/GuangJX/static/plugins/jquery.dataTables.js"></script>
+	<script src="/static/plugins/jquery.dataTables.js"></script>
 	<script type="text/javascript">
     function addlightbox(obj){
 		$("#adddialog").dialog("option", {
@@ -145,7 +145,7 @@
 				<tbody>
 					<c:forEach var="light" items="${lightlist}">
 						<tr class="gradeX">
-							<td align="center"><a style="text-decoration:none;" href="/GuangJX/manage/device/getview/detil?id=${light.ID}">${light.NAME}</a></td>
+							<td align="center"><a style="text-decoration:none;" href="/manage/device/getview/detil?id=${light.ID}">${light.NAME}</a></td>
 							<td align="center">${light.IEME}</td>
 							<td align="center">${light.DOORSTATUS}</td>
 							<td align="center">${light.LOCKSTATUS}</td>
@@ -153,7 +153,7 @@
 							<td align="center">
 							<input type="hidden"  value="${light.ID}"> 
 							<input type="button" value="删除" class="mws-button red small" onclick="deletelightbox(this)"/>
-							<a class="btn btn-primary"" style="text-decoration:none;" href="/GuangJX/manage/device/getview/getreport?IEME=${light.IEME}">上报历史</a>
+							<a class="btn btn-primary"" style="text-decoration:none;" href="/manage/device/getview/getreport?IEME=${light.IEME}">上报历史</a>
 						    </td>
 						</tr>
 					</c:forEach>

@@ -25,7 +25,7 @@ $(document).ready(function(){
 			<span class="mws-i-24 i-list">${lightbox.NAME}</span>
 		</div>
 		<div class="mws-panel-body">
-			<form class="mws-form" action="/GuangJX/manage/device/savelightbox">
+			<form class="mws-form" action="/manage/device/savelightbox">
 				<div class="mws-form-inline">
 					<div class="mws-form-row">
 						<label>箱体名称</label>

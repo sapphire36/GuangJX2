@@ -9,7 +9,7 @@
 %>
 <rapid:override name="title">
 	<title>${company.NAME}人员管理</title>
-	<script src="/GuangJX/static/plugins/jquery.dataTables.js"></script>
+	<script src="/static/plugins/jquery.dataTables.js"></script>
 	<script type="text/javascript">
  
     function addconstruct(obj){

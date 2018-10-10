@@ -11,36 +11,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="utf-8" />
 <!-- Required Stylesheets -->
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/reset.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/text.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/fonts/ptsans/stylesheet.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/fluid.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/mws.style.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/icons/icons.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/reset.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/text.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/fonts/ptsans/stylesheet.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/fluid.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/mws.style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/icons/icons.css" media="screen" />
 <!-- Demo and Plugin Stylesheets -->
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/plugins/spinner/spinner.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/jui/jquery.ui.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/plugins/spinner/spinner.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/jui/jquery.ui.css" media="screen" />
 <!-- Theme Stylesheet -->
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/mws.theme.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/mws.theme.css" media="screen" />
 
 <!-- JavaScript Plugins -->
-<script  src="/GuangJX/static/js/jquery-1.7.1.min.js"></script>
+<script  src="/static/js/jquery-1.7.1.min.js"></script>
 <!--[if lt IE 9]>
-<script  src="/GuangJX/static/plugins/flot/excanvas.min.js"></script>
+<script  src="/static/plugins/flot/excanvas.min.js"></script>
 <![endif]-->
-<script  src="/GuangJX/static/plugins/flot/jquery.flot.min.js"></script>
-<script  src="/GuangJX/static/plugins/flot/jquery.flot.pie.min.js"></script>
-<script  src="/GuangJX/static/plugins/flot/jquery.flot.stack.min.js"></script>
-<script  src="/GuangJX/static/plugins/flot/jquery.flot.resize.min.js"></script>
-<script  src="/GuangJX/static/plugins/colorpicker/colorpicker.js"></script>
-<script  src="/GuangJX/static/plugins/spinner/ui.spinner.js"></script>
-<script  src="/GuangJX/static/js/mws.js"></script>
-<script  src="/GuangJX/static/js/jquery-1.7.1.min.js"></script>
-<script  src="/GuangJX/static/js/jquery-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
-<script  src="/GuangJX/static/plugins/jgrowl/jquery.jgrowl.js"></script>
-<link href="/GuangJX/static/css/toastr.css" rel="stylesheet" />
-<script src="/GuangJX/static/js/toastr.js"></script>
+<script  src="/static/plugins/flot/jquery.flot.min.js"></script>
+<script  src="/static/plugins/flot/jquery.flot.pie.min.js"></script>
+<script  src="/static/plugins/flot/jquery.flot.stack.min.js"></script>
+<script  src="/static/plugins/flot/jquery.flot.resize.min.js"></script>
+<script  src="/static/plugins/colorpicker/colorpicker.js"></script>
+<script  src="/static/plugins/spinner/ui.spinner.js"></script>
+<script  src="/static/js/mws.js"></script>
+<script  src="/static/js/jquery-1.7.1.min.js"></script>
+<script  src="/static/js/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/plugins/jgrowl/jquery.jgrowl.css" media="screen" />
+<script  src="/static/plugins/jgrowl/jquery.jgrowl.js"></script>
+<link href="/static/css/toastr.css" rel="stylesheet" />
+<script src="/static/js/toastr.js"></script>
 <script type="text/javascript">
 function showmessage(message,show) {
 	$.jGrowl(message, {
@@ -108,7 +108,7 @@ function getmessage(){
     	<!-- Logo Wrapper -->
     	<div id="mws-logo-container">
         	<div id="mws-logo-wrap">
-            	<img src="/GuangJX/static/images/mws-logo.png" alt="mws admin" />
+            	<img src="/static/images/mws-logo.png" alt="mws admin" />
 			</div>
         </div>
         
@@ -132,7 +132,7 @@ function getmessage(){
             
             <!-- User Messages -->
             <div id="mws-user-message" class="mws-dropdown-menu">
-            	<a href="/GuangJX/static/#" class="mws-i-24 i-message mws-dropdown-trigger">Messages</a>
+            	<a href="/static/#" class="mws-i-24 i-message mws-dropdown-trigger">Messages</a>
                 <span class="mws-dropdown-notif" style="display:none;" id="messagesize"></span>
                 <div class="mws-dropdown-box">
                 	<div class="mws-dropdown-content">
@@ -148,7 +148,7 @@ function getmessage(){
             <!-- User Functions -->
             <div id="mws-user-info" class="mws-inset">
             	<div id="mws-user-photo">
-                	<img src="/GuangJX/static/example/profile.jpg" alt="User Photo" />
+                	<img src="/static/example/profile.jpg" alt="User Photo" />
                 </div>
                 <div id="mws-user-functions">
                     <div id="mws-username">
@@ -157,7 +157,7 @@ function getmessage(){
                     <ul>
                     	<li><a href="#">个人信息</a></li>
                         <li><a href="#">更改密码</a></li>
-                        <li><a href="/GuangJX/login/index">注销</a></li>
+                        <li><a href="/login/index">注销</a></li>
                     </ul>
                 </div>
             </div>

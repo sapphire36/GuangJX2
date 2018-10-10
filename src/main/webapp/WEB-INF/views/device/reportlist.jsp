@@ -8,7 +8,7 @@ String basePath1 = request.getScheme()+"://"+request.getServerName()+":"+request
 %>
 <rapid:override name="title">
 	<title>上报历史</title>
-	<script src="/GuangJX/static/plugins/jquery.dataTables.js"></script>
+	<script src="/static/plugins/jquery.dataTables.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		//页面加载时自动执行该函数

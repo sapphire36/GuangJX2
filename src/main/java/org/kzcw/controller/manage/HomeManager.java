@@ -69,7 +69,7 @@ public class HomeManager {
 						break;
 					}
 					stringBuffer.append("<li class=\"unread\">");
-					stringBuffer.append("<a href=\"/GuangJX/manage/control/getview/getcontrolview\">");
+					stringBuffer.append("<a href=\"/manage/control/getview/getcontrolview\">");
 					stringBuffer.append("<span class=\"sender\">");
 					stringBuffer.append(operate.EMEI);
 					stringBuffer.append("</span>");
@@ -92,7 +92,7 @@ public class HomeManager {
 						break;
 					}
 					stringBuffer.append("<li class=\"unread\">");
-					stringBuffer.append("<a href=\"/GuangJX/manage/device/getview/checklist\">");
+					stringBuffer.append("<a href=\"/manage/device/getview/checklist\">");
 					stringBuffer.append("<span class=\"sender\">");
 					stringBuffer.append(lightbox.getNAME());
 					stringBuffer.append("</span>");
@@ -143,7 +143,7 @@ public class HomeManager {
 						break;
 					}
 					stringBuffer.append("<li class=\"unread\">");
-					stringBuffer.append("<a href=\"/GuangJX/manage/device/getview/breakhistorylist\">");
+					stringBuffer.append("<a href=\"/manage/device/getview/breakhistorylist\">");
 					stringBuffer.append("<span class=\"message\">");
 					stringBuffer.append(breakhistory.getIEME());
 					stringBuffer.append("</span>");
@@ -224,31 +224,31 @@ public class HomeManager {
 	public String additem(ModelMap map, HttpServletRequest request) {
 		// NAME,int CODE,int ISLEAF,String URL,String IMAGE,int PARRENTCODE
 		List<Module> list = new ArrayList<Module>();
-		//list.add(new Module("首页", 100, 0, "/GuangJX/manage/home/getview/index", "i-home", 100));
+		//list.add(new Module("首页", 100, 0, "/manage/home/getview/index", "i-home", 100));
 
 		list.add(new Module("业务操作", 200, 0, "", "i-list", 200));
-		list.add(new Module("监控地图", 201, 1, "/GuangJX/manage/monitor/getview/getmap", "", 200));
-		list.add(new Module("施工审核", 202, 1, "/GuangJX/manage/control/getview/getcontrolview", "", 200));
+		list.add(new Module("监控地图", 201, 1, "/manage/monitor/getview/getmap", "", 200));
+		list.add(new Module("施工审核", 202, 1, "/manage/control/getview/getcontrolview", "", 200));
 
 		list.add(new Module("设备管理", 300, 0, "", "i-list", 300));
-		list.add(new Module("光交箱管理", 301, 1, "/GuangJX/manage/device/getview/lightboxlist", "", 300));
-		list.add(new Module("安装审核", 302, 1, "/GuangJX/manage/device/getview/checklist", "", 300));
-		list.add(new Module("告警列表", 303, 1, "/GuangJX/manage/device/getview/breakhistorylist", "", 300));
-		list.add(new Module("安装审核列表", 304, 1, "/GuangJX/manage/device/getview/checklist", "", 300));
+		list.add(new Module("光交箱管理", 301, 1, "/manage/device/getview/lightboxlist", "", 300));
+		list.add(new Module("安装审核", 302, 1, "/manage/device/getview/checklist", "", 300));
+		list.add(new Module("告警列表", 303, 1, "/manage/device/getview/breakhistorylist", "", 300));
+		list.add(new Module("安装审核列表", 304, 1, "/manage/device/getview/checklist", "", 300));
 
 		list.add(new Module("施工方管理", 400, 0, "", "i-list", 400));
-		list.add(new Module("施工账户管理", 401, 1, "/GuangJX/manage/constructor/getview/constructorlist", "", 400));
-		list.add(new Module("施工历史", 402, 1, "/GuangJX/manage/constructor/getview/operahistorylist", "", 400));
+		list.add(new Module("施工账户管理", 401, 1, "/manage/constructor/getview/constructorlist", "", 400));
+		list.add(new Module("施工历史", 402, 1, "/manage/constructor/getview/operahistorylist", "", 400));
 
 		list.add(new Module("用户管理", 500, 0, "#", "i-list", 500));
-		list.add(new Module("区域管理", 501, 1, "/GuangJX/manage/area/getview/arealist", "", 500));
-		list.add(new Module("人员管理", 502, 1, "/GuangJX/manage/user/getview/userlist", "", 500));
-		list.add(new Module("权限管理", 503, 1, "/GuangJX/manage/role/getview/rolelist", "", 500));
+		list.add(new Module("区域管理", 501, 1, "/manage/area/getview/arealist", "", 500));
+		list.add(new Module("人员管理", 502, 1, "/manage/user/getview/userlist", "", 500));
+		list.add(new Module("权限管理", 503, 1, "/manage/role/getview/rolelist", "", 500));
 
 		list.add(new Module("系统设置", 600, 0, "", "i-list", 17));
-		list.add(new Module("系统参数设置", 601, 1, "/GuangJX/manage/system/getview/setting", "", 600));
-		list.add(new Module("报警触发器", 602, 1, "/GuangJX/manage/system/getview/warntriggerset", "", 600));
-		list.add(new Module("系统日志", 603, 1, "/GuangJX/manage/system/getview/journallist", "", 600));
+		list.add(new Module("系统参数设置", 601, 1, "/manage/system/getview/setting", "", 600));
+		list.add(new Module("报警触发器", 602, 1, "/manage/system/getview/warntriggerset", "", 600));
+		list.add(new Module("系统日志", 603, 1, "/manage/system/getview/journallist", "", 600));
 		// mservice.save(t);
 		mservice.deleteAllItem();// 清空表
 		for (Module m : list) {

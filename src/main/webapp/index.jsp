@@ -11,16 +11,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
 <title>login</title>
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/login/normalize.css" />
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/login/demo.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/login/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/login/demo.css" />
 <!--必要样式-->
-<link rel="stylesheet" type="text/css" href="/GuangJX/static/css/login/component.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/login/component.css" />
 <!--[if IE]>
 <script src="js/html5.js"></script>
 <![endif]-->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<link href="/GuangJX/static/css/toastr.css" rel="stylesheet" />
-<script src="/GuangJX/static/js/toastr.js"></script>
+<link href="/static/css/toastr.css" rel="stylesheet" />
+<script src="/static/js/toastr.js"></script>
 <script type="text/javascript">
 //script内容需要放在rapid override标签之间
 $(document).ready(function(){		
@@ -60,7 +60,7 @@ function dologin(){
 }
 </script>
 </head>
-<body background="/GuangJX/static/images/login/demo-1-bg.jpg">
+<body background="/static/images/login/demo-1-bg.jpg">
 		<div class="container demo-1">
 			<div class="content">
 				<div id="large-header" class="large-header">
@@ -85,9 +85,9 @@ function dologin(){
 				</div>
 			</div>
 		</div><!-- /container -->
-		<script src="/GuangJX/static/js/login/TweenLite.min.js"></script>
-		<script src="/GuangJX/static/js/login/EasePack.min.js"></script>
-		<script src="/GuangJX/static/js/login/rAF.js"></script>
-		<script src="/GuangJX/static/js/login/demo-1.js"></script>
+		<script src="/static/js/login/TweenLite.min.js"></script>
+		<script src="/static/js/login/EasePack.min.js"></script>
+		<script src="/static/js/login/rAF.js"></script>
+		<script src="/static/js/login/demo-1.js"></script>
 	</body>
 </html>

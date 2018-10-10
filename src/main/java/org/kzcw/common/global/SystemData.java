@@ -26,7 +26,7 @@ public class SystemData {
 	
 	public void delAreaEntry(String areaEntry) {
 		//删除项目
-		AreaEntry temp = getAreaEntry(areaEntry);
+		final AreaEntry temp = getAreaEntry(areaEntry);
 		if(temp!=null) {
 	        new Thread("Stop work"){
 	            @Override

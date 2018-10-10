@@ -121,7 +121,7 @@ function getchecklist(){
 			<form class="mws-form" action="#">
 				<div class="mws-form-inline">
 					<div class="mws-form-row">
-						<img id="newpic" src="/GuangJX/manage/device/showImage"
+						<img id="newpic" src="/manage/device/showImage"
 							width="220" height="300" alt="Applied picture" />
 					</div>
 					<div class="mws-form-row">
