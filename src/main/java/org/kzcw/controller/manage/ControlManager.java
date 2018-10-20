@@ -12,6 +12,7 @@ import org.kzcw.common.Iot.utils.OperateMessage;
 import org.kzcw.common.Iot.youren.OperaType;
 import org.kzcw.common.global.Constant;
 import org.kzcw.common.global.SystemData;
+import org.kzcw.model.Lightbox;
 import org.kzcw.model.User;
 import org.kzcw.service.BreakhistoryService;
 import org.kzcw.service.LightboxService;
@@ -133,11 +134,11 @@ public class ControlManager {
 				else
 				    queque.addItem(new OperaType(message.EMEI, 0));// 加入关锁队列
 				areaEntry.getOperateList().delItemByEMEI(IMEI);
-				/*
-				LightBox box = lservice.findByIMEI(message.EMEI); //根据IMEI获取LightBox
+
+				Lightbox box = lservice.findByIMEI(message.EMEI); //根据IMEI获取LightBox
 				box.setCONSTRUCTSTATUS(1); //更新施工状态
+				box.setUNLOCKSTATUS(0);
 				lservice.update(box);   //保存
-				*/
 				result.put("data", "true");
 			} else {
 				result.put("data", "false");
