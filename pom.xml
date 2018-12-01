@@ -119,6 +119,15 @@
 			<artifactId>rapid-core</artifactId>
 			<version>4.0.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>youren</groupId>
+			<artifactId>youren</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/usrcloudmqttclientsdk.jar</systemPath>
+		</dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>

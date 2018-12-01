@@ -26,7 +26,6 @@ public class LoginController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(ModelMap map, HttpServletRequest request) {
-
         return "/login/login";
     }
 
