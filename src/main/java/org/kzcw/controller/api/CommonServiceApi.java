@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/api/common")
-public class CommonServiceApi {
+public class  CommonServiceApi {
 	//通用服务API
 	
 	@Autowired
