@@ -48,7 +48,7 @@ public class WaitPublishQueue {
 			//如果在操作列表中存在改项
 			IsFlush=true;
 			OperaType opera=list.get(EMEI);
-			if(opera.type==1) {
+			if(opera.type != 1) {
 				//执行开锁
 				usersession.getYourenmanager().doOpenLock(EMEI);
 				usersession.getYourenmanager().doOpenLock(EMEI);
