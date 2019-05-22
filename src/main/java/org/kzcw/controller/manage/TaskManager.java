@@ -45,7 +45,7 @@ public class TaskManager {
     SystemlogsService logservice;
 
     // 每个5秒执行一次
-    @Scheduled( cron = "0/15 * * * * ? " )
+    @Scheduled(cron = "0/15 * * * * ? ")
     public void statusreport() {
         // 状态上报数据
         SystemData systemdata = SystemData.getInstance();
@@ -85,7 +85,7 @@ public class TaskManager {
     }
 
     // 每个5秒执行一次
-    @Scheduled( cron = "0/15 * * * * ? " )
+    @Scheduled(cron = "0/15 * * * * ? ")
     public void logschedule() {
         // 日志数据处理
         SystemData systemdata = SystemData.getInstance();
@@ -104,6 +104,7 @@ public class TaskManager {
     }
 
     // 每个5秒执行一次
+    /*
     @Scheduled( cron = "0/30 * * * * ? " )
     public void autoCloseLightbox() {
         // 自动关锁
@@ -130,9 +131,9 @@ public class TaskManager {
             }
         }
     }
-
+*/
     // 每个分钟执行一次
-    @Scheduled( cron = "0/15 * * * * ? " )
+    @Scheduled(cron = "0/15 * * * * ? ")
     public void demonschedule() {
         // 守护进程
         List<Area> list = areaservice.list();
